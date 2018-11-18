@@ -1,12 +1,14 @@
 ﻿using NotVisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using WeMicroIt.Utils.CSVConverterLite.Interfaces;
 
-namespace WeMicroIt.Utils.CSVConverter
+namespace WeMicroIt.Utils.CSVConverterLite
 {
     public class FieldInfo
     {
@@ -37,6 +39,7 @@ namespace WeMicroIt.Utils.CSVConverter
             }
             return true;
         }
+
         public List<String> SerializeBlock(List<Object> Data)
         {
             return SerializeBlock(Data, false);
@@ -103,12 +106,20 @@ namespace WeMicroIt.Utils.CSVConverter
         {
             if (HeaderValues.Count< 1)
             {
-                //generate letter properties name
+                int i = 0;
+                for (char c = 'A'; c <= 'Z'; c++)
+                {
+                    HeaderValues.Add(new FieldInfo() { Name = c.ToString(), Type = typeof(string) });
+                    i++;
+                    if (i >= GetFields(Data.FirstOrDefault()).Length)
+                    {
+                        break;
+                    }
+                }
             }
             List<object> list = new List<object>();
             foreach (var item in Data)
             {
-                //to be done
                 list.Add(DeserialiseLine(item));
             }
             return list;
@@ -127,19 +138,26 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public Object DeserialiseHeader(string Data)
         {
-            //generate properties based on data passed in
-            return null;
+
+            var cells = Data.Split(Deliminator).ToList();
+            dynamic sampleObject = new ExpandoObject();
+            foreach (var item in GetFields(Data))
+            {
+                sampleObject.item = "";
+                HeaderValues.Add(new FieldInfo { Name = item});
+            }
+            return sampleObject;
         }
 
         public Object DeserialiseLine(string Data)
         {
             var cells = Data.Split(Deliminator).ToList();
-            object item = new object();
+            dynamic sampleObject = new ExpandoObject();
             for (int i = 0; i < Data.Split(Deliminator).Count(); i++)
             {
-                //build class
+                sampleObject.HeaderValues[i].Name = Data[i];
             }
-            return item;
+            return sampleObject;
         }
 
 
@@ -175,13 +193,18 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public T DeserialiseLine<T>(string Data)
         {
-            Type MyType = Type.GetType(nameof(Data));
-            ColumnValues = MyType.GetMembers().ToList();
-            String[] fields = Data.Split(Deliminator);
-            T line = default(T);
-            foreach (var item in GetFields(Data))
+            dynamic line = new ExpandoObject();
+            string[] con = GetFields(Data);
+            int i = 0;
+            while (i <HeaderValues.Count && i < con.Length)
             {
-
+                line.HeaderValues[i] = con[i];
+                i++;
+            }
+            while (i < HeaderValues.Count)
+            {
+                line.HeaderValues[i] = null;
+                i++;
             }
             return line;
         }
