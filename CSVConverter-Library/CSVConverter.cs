@@ -44,7 +44,7 @@ namespace WeMicroIt.Utils.CSVConverter
             }
             else
             {
-                lines.Add(SerializeHeader(Data.FirstOrDefault()))
+                lines.Add(SerializeHeader(Data.FirstOrDefault()));
             }
             foreach (var item in Data)
             {
