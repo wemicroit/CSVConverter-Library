@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>WeMicroIt.Utils.CSVConverterLite.Tests</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>WeMicroIt.Utils.CSVConverterLite.Tests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="WeMicroIt.Tester.Data" Version="0.5.0-Alpha2" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSVConverterLite\CSVConverterLite.csproj" />
+  </ItemGroup>
+
+</Project>
