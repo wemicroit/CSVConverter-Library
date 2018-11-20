@@ -40,39 +40,72 @@ namespace WeMicroIt.Utils.CSVConverter
             return true;
         }
 
-        public List<String> SerializeBlock<T>(List<T> Data)
+        public List<string> SerializeBlock<T>(List<T> Data)
         {
             return SerializeBlock(Data, null);
         }
 
-        public List<String> SerializeBlock<T>(List<T> Data, string Header)
+        public List<string> SerializeBlock<T>(List<T> Data, string Header)
         {
-            List<string> lines = new List<string>();
-            lines.Add(SerializeHeader<T>(Data.FirstOrDefault(), Header));
-            lines.AddRange(SerializeLines<T>(Data));
-            return lines;
-        }
-
-        public List<String> SerializeLines<T>(List<T> Data)
-        {
-            List<string> lines = new List<string>();
-            foreach (var item in Data)
+            try
             {
-                lines.Add(SerializeLine(item));
+                if (Data == null)
+                {
+                    throw new NullReferenceException();
+                }
+                List<string> lines = new List<string>();
+                lines.Add(SerializeHeader<T>(Data.FirstOrDefault(), Header));
+                lines.AddRange(SerializeLines<T>(Data));
+                return lines;
             }
-            return lines;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        public String SerializeHeader<T>(T Data)
+        public List<string> SerializeLines<T>(List<T> Data)
         {
-            Type MyType = Type.GetType(nameof(Data));
-            ColumnValues = MyType.GetMembers().ToList();
-            return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToList(), cSVSettings.NewLine);
+            try
+            {
+                if (Data == null)
+                {
+                    throw new NullReferenceException();
+                }
+                List<string> lines = new List<string>();
+                foreach (var item in Data)
+                {
+                    lines.Add(SerializeLine(item));
+                }
+                return lines;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public string SerializeHeader<T>(T Data)
+        {
+            try
+            {
+                if (Data == null)
+                {
+                    throw new NullReferenceException();
+                }
+                Type MyType = Type.GetType(nameof(Data));
+                ColumnValues = MyType.GetMembers().ToList();
+                return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToList(), cSVSettings.NewLine);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public string SerializeHeader<T>(T Data, string Header)
         {   
-            if (Header == null)
+            if (string.IsNullOrEmpty(Header))
             {
                 return SerializeHeader(Data);
             }
@@ -82,18 +115,29 @@ namespace WeMicroIt.Utils.CSVConverter
             }
         }
 
-        public String SerializeLine<T>(T Data)
+        public string SerializeLine<T>(T Data)
         {
-            string line = "";
-            Type MyType = Type.GetType(nameof(Data));
-            foreach (var item in ColumnValues)
+            try
             {
-                if (item.MemberType == MemberTypes.Property)
+                if (Data == null)
                 {
-                    string.Join(cSVSettings.Deliminator, line, MyType.GetProperty(nameof(item)).Attributes.ToString());
+                    throw new NullReferenceException();
                 }
+                string line = "";
+                Type MyType = Type.GetType(nameof(Data));
+                foreach (var item in ColumnValues)
+                {
+                    if (item.MemberType == MemberTypes.Property)
+                    {
+                        string.Join(cSVSettings.Deliminator, line, MyType.GetProperty(nameof(item)).Attributes.ToString());
+                    }
+                }
+                return string.Join(line.TrimStart(cSVSettings.Deliminator), cSVSettings.NewLine);
             }
-            return string.Join(line.TrimStart(cSVSettings.Deliminator), cSVSettings.NewLine);
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
 
@@ -110,12 +154,23 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public List<T> DeserialiseLines<T>(List<string> Data)
         {
-            List<T> Parsed = new List<T>();
-            foreach (var item in Data)
+            try
             {
-                Parsed.Add(DeserialiseLine<T>(item));
+                if (Data == null)
+                {
+                    throw new NullReferenceException();
+                }
+                List<T> Parsed = new List<T>();
+                foreach (var item in Data)
+                {
+                    Parsed.Add(DeserialiseLine<T>(item));
+                }
+                return Parsed;
             }
-            return Parsed;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public List<T> DeserialiseLines<T>(List<string> Data, bool Headers)
@@ -129,35 +184,61 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public T DeserialiseLine<T>(string Data)
         {
-            dynamic line = new ExpandoObject();
-            string[] con = GetFields(Data);
-            int i = 0;
-            while (i <HeaderValues.Count && i < con.Length)
+            try
             {
-                line.HeaderValues[i] = con[i];
-                i++;
+                if (string.IsNullOrEmpty(Data))
+                {
+                    throw new NullReferenceException();
+                }
+                if (HeaderValues.Count < 1)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                dynamic line = new ExpandoObject();
+                string[] con = GetFields(Data);
+                if (con.Length < 1)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                int i = 0;
+                while (i < HeaderValues.Count && i < con.Length)
+                {
+                    line.HeaderValues[i] = con[i];
+                    i++;
+                }
+                while (i < HeaderValues.Count)
+                {
+                    line.HeaderValues[i] = null;
+                    i++;
+                }
+                return line;
             }
-            while (i < HeaderValues.Count)
+            catch (Exception)
             {
-                line.HeaderValues[i] = null;
-                i++;
+                return default(T);
             }
-            return line;
         }
 
         private string[] GetFields(string Data)
         {
-            using (var csvReader = new StringReader(Data))
+            try
             {
-                using (var parser = new CsvTextFieldParser(csvReader))
+                using (var csvReader = new StringReader(Data))
                 {
-                    parser.SetDelimiter(cSVSettings.Deliminator);
-                    parser.TrimWhiteSpace = false;
+                    using (var parser = new CsvTextFieldParser(csvReader))
+                    {
+                        parser.SetDelimiter(cSVSettings.Deliminator);
+                        parser.TrimWhiteSpace = false;
 
-                    return parser.ReadFields();
+                        return parser.ReadFields();
+                    }
                 }
             }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
     }
 }
