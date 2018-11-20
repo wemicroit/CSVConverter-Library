@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeMicroIt.Utils.CSVConverterLite.Models
+namespace WeMicroIt.Utils.CSVConverter.Models
 {
     public class CSVSettings
     {

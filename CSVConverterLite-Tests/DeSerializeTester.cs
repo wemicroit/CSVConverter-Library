@@ -4,7 +4,7 @@ using System.Text;
 using WeMicroIt.Tester.Library.Data;
 using Xunit;
 
-namespace WeMicroIt.Utils.CSVConverterLite.Tests
+namespace WeMicroIt.Utils.CSVConverter.Tests
 {
     public class DeSerializeTester
     {

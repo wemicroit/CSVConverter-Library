@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>WeMicroIt.Utils.CSVConverterLite.Tests</RootNamespace>
+    <RootNamespace>WeMicroIt.Utils.CSVConverter.Tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>WeMicroIt.Utils.CSVConverterLite.Tests</AssemblyName>
+    <AssemblyName>WeMicroIt.Utils.CSVConverter.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSVConverterLite\CSVConverterLite.csproj" />
+    <ProjectReference Include="..\CSVConverterLite\CSVConverter.csproj" />
   </ItemGroup>
 
 </Project>

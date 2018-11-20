@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using WeMicroIt.Tester.Library.Data;
-using WeMicroIt.Utils.CSVConverterLite.Models;
+using WeMicroIt.Utils.CSVConverter.Models;
 using Xunit;
 
-namespace WeMicroIt.Utils.CSVConverterLite.Tests
+namespace WeMicroIt.Utils.CSVConverter.Tests
 {
     public class SerializeTester
     {

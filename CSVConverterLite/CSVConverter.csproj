@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>WeMicroIt.Utils.CSVConverterLite</RootNamespace>
-    <AssemblyName>WeMicroIt.Utils.CSVConverterLite</AssemblyName>
+    <RootNamespace>WeMicroIt.Utils.CSVConverter</RootNamespace>
+    <AssemblyName>WeMicroIt.Utils.CSVConverter</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>James Thompson</Authors>
     <Company>WeMicroIt</Company>
     <Product>CSV Converter - Lite</Product>
     <Version>0.5.0-Beta4</Version>
-    <Description>This libraries sole purpose is take an input and convert into CSV compliant output. It also now supports deserialising CSV data into both generic models as well as speciffied models. Future additions will  include writing to file</Description>
+    <Description>This libraries sole purpose is take an input and convert into CSV compliant output. It also now supports deserialising CSV data into both generic models as well as speciffied models.</Description>
     <PackageReleaseNotes>This is a beta library and as such it is still very much a work in progress</PackageReleaseNotes>
     <Copyright>2018</Copyright>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>CSV Conversion</PackageTags>
-    <PackageId>WeMicroIt.CSVConverterLite</PackageId>
+    <PackageId>WeMicroIt.Utils.CSVConverter</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

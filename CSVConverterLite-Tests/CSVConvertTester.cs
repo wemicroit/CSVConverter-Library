@@ -1,9 +1,9 @@
 using System;
-using WeMicroIt.Utils.CSVConverterLite;
-using WeMicroIt.Utils.CSVConverterLite.Models;
+using WeMicroIt.Utils.CSVConverter;
+using WeMicroIt.Utils.CSVConverter.Models;
 using Xunit;
 
-namespace WeMicroIt.Utils.CSVConverterLite.Tests
+namespace WeMicroIt.Utils.CSVConverter.Tests
 {
     public class CSVConvertTester
     {

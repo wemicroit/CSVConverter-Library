@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using WeMicroIt.Utils.CSVConverterLite.Interfaces;
-using WeMicroIt.Utils.CSVConverterLite.Models;
+using WeMicroIt.Utils.CSVConverter.Interfaces;
+using WeMicroIt.Utils.CSVConverter.Models;
 
-namespace WeMicroIt.Utils.CSVConverterLite
+namespace WeMicroIt.Utils.CSVConverter
 {
     public class FieldInfo
     {
@@ -48,18 +48,8 @@ namespace WeMicroIt.Utils.CSVConverterLite
         public List<String> SerializeBlock<T>(List<T> Data, string Header)
         {
             List<string> lines = new List<string>();
-            if (Header == null)
-            {
-                lines.Add(SerializeHeader(Data.FirstOrDefault()));
-            }
-            else
-            {
-                lines.Add(Header);
-            }
-            foreach (var item in Data)
-            {
-                lines.Add(SerializeLine(item));
-            }
+            lines.Add(SerializeHeader<T>(Data.FirstOrDefault(), Header));
+            lines.AddRange(SerializeLines<T>(Data));
             return lines;
         }
 
@@ -78,6 +68,18 @@ namespace WeMicroIt.Utils.CSVConverterLite
             Type MyType = Type.GetType(nameof(Data));
             ColumnValues = MyType.GetMembers().ToList();
             return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToList(), cSVSettings.NewLine);
+        }
+
+        public string SerializeHeader<T>(T Data, string Header)
+        {   
+            if (Header == null)
+            {
+                return SerializeHeader(Data);
+            }
+            else
+            {
+                return Header;
+            }
         }
 
         public String SerializeLine<T>(T Data)
@@ -146,12 +148,14 @@ namespace WeMicroIt.Utils.CSVConverterLite
         private string[] GetFields(string Data)
         {
             using (var csvReader = new StringReader(Data))
-            using (var parser = new CsvTextFieldParser(csvReader))
             {
-                parser.SetDelimiter(cSVSettings.Deliminator);
-                parser.TrimWhiteSpace = false;
+                using (var parser = new CsvTextFieldParser(csvReader))
+                {
+                    parser.SetDelimiter(cSVSettings.Deliminator);
+                    parser.TrimWhiteSpace = false;
 
-                return parser.ReadFields();
+                    return parser.ReadFields();
+                }
             }
 
         }
