@@ -9,10 +9,8 @@ namespace WeMicroIt.Utils.CSVConverter.Tests.Unit
 {
     public class DeSerializeUnit
     {
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void DeSerializeNullBlock(bool header)
+        [Fact]
+        public void DeSerializeNullBlock()
         {
             //Arrange
             var converter = new CSVConverter();
@@ -22,9 +20,18 @@ namespace WeMicroIt.Utils.CSVConverter.Tests.Unit
 
             //Assert
             Assert.Null(actual);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void DeSerializeNullBlock_Header(bool header)
+        {
+            //Arrange
+            var converter = new CSVConverter();
 
             //Act         
-            actual = converter.DeSerializeBlock(null, header);
+            var actual = converter.DeSerializeBlock(null, header);
 
             //Assert
             Assert.Null(actual);
@@ -51,16 +58,27 @@ namespace WeMicroIt.Utils.CSVConverter.Tests.Unit
             //Asssert
             Assert.NotNull(actual);
             Assert.Equal(expected, actual.Count);
+        }
+
+        [Theory]
+        [InlineData("t,1", 1, false)]
+        [InlineData("t,1\r\nt,2", 2, false)]
+        [InlineData("t,1", 0, true)]
+        [InlineData("t,1\r\nt,2", 1, true)]
+        public void DeSerializeBlock_Header(string block, int expected, bool Header)
+        {
+            //Arrange
+            var converter = new CSVConverter();
 
             //Act         
-            actual = converter.DeSerializeBlock<object>(block, false);
+            var actual = converter.DeSerializeBlock<object>(block, Header);
 
             //Asssert
             Assert.NotNull(actual);
             Assert.Equal(expected, actual.Count);
 
             //Act         
-            actual = converter.DeSerializeBlock(block, false);
+            actual = converter.DeSerializeBlock(block, Header);
 
             //Asssert
             Assert.NotNull(actual);
@@ -74,7 +92,7 @@ namespace WeMicroIt.Utils.CSVConverter.Tests.Unit
             var converter = new CSVConverter();
 
             //Act         
-            var actual = converter.DeSerializeLines(null);
+            var actual = converter.DeSerializeLines((string)null);
 
             //Assert
             Assert.Null(actual);
@@ -87,31 +105,41 @@ namespace WeMicroIt.Utils.CSVConverter.Tests.Unit
         {
             //Arrange
             var converter = new CSVConverter();
-            var data = block.Split("\r\n").ToList();
 
             //Act         
-            var actual = converter.DeSerializeLines<object>(data);
+            var actual = converter.DeSerializeLines<object>(block);
 
             //Assert
             Assert.NotNull(actual);
             Assert.Equal(expected, actual.Count);
 
             //Act         
-            actual = converter.DeSerializeLines(data);
+            actual = converter.DeSerializeLines(block);
 
             //Asssert
             Assert.NotNull(actual);
             Assert.Equal(expected, actual.Count);
+        }
+
+        [Theory]
+        [InlineData("t,1", 1, false)]
+        [InlineData("t,1\r\nt,2", 2, false)]
+        [InlineData("t,1", 0, true)]
+        [InlineData("t,1\r\nt,2", 1, true)]
+        public void DeSerializeLines_Header(string block, int expected, bool Headers)
+        {
+            //Arrange
+            var converter = new CSVConverter();
 
             //Act         
-            actual = converter.DeSerializeLines<object>(data, false);
+            var actual = converter.DeSerializeLines<object>(block, Headers);
 
             //Assert
             Assert.NotNull(actual);
             Assert.Equal(expected, actual.Count);
 
             //Act         
-            actual = converter.DeSerializeLines(data, false);
+            actual = converter.DeSerializeLines(block, Headers);
 
             //Asssert
             Assert.NotNull(actual);
