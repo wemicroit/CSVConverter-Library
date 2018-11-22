@@ -33,9 +33,32 @@ namespace WeMicroIt.Utils.CSVConverter
             return DeSerializeLines<T>(Data.Split(cSVSettings.NewLine).ToList(), Headers);
         }
 
+        public List<object> DeSerializeLines(string Data)
+        {
+            try
+            {
+                if (Data == null)
+                {
+                    throw new NullReferenceException();
+                }
+                var newData = Data.Split("\r\n").ToList();
+                return DeSerializeLines(newData);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<object> DeSerializeLines(List<string> Data)
         {
             return DeSerializeLines<object>(Data);
+        }
+
+        public List<T> DeSerializeLines<T>(string Data)
+        {
+            var newData = Data.Split("\r\n").ToList();
+            return DeSerializeLines<T>(newData);
         }
 
         public List<T> DeSerializeLines<T>(List<string> Data)
@@ -59,9 +82,21 @@ namespace WeMicroIt.Utils.CSVConverter
             }
         }
 
+        public List<object> DeSerializeLines(string Data, bool Headers)
+        {
+            var newData = Data.Split("\r\n").ToList();
+            return DeSerializeLines(newData, Headers);
+        }
+
         public List<object> DeSerializeLines(List<string> Data, bool Headers)
         {
             return DeSerializeLines<object>(Data, Headers);
+        }
+
+        public List<T> DeSerializeLines<T>(string Data, bool Headers)
+        {
+            var newData = Data.Split("\r\n").ToList();
+            return DeSerializeLines<T>(newData, Headers);
         }
 
         public List<T> DeSerializeLines<T>(List<string> Data, bool Headers)

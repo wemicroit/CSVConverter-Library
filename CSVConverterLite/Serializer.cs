@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using WeMicroIt.Utils.CSVConverter.Interfaces;
@@ -78,13 +79,38 @@ namespace WeMicroIt.Utils.CSVConverter
                 {
                     throw new NullReferenceException();
                 }
-                Type MyType = typeof(T);
-                ColumnValues = MyType.GetMembers().ToList();
-                if (ColumnValues == null || ColumnValues.Count < 1)
+                if (typeof(T) == typeof(object))
                 {
-                    return null;
+                    var tTarget = Data as IDynamicMetaObjectProvider;
+
+                    if (tTarget != null)
+                    {
+                        Columns = tTarget.GetMetaObject(Expression.Constant(tTarget)).GetDynamicMemberNames().ToList();
+                        if (Columns == null || Columns.Count < 1)
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        /*if (ComObjectType != null && ComObjectType.IsInstanceOfType(Data) && ComBinder.IsAvailable)
+
+                        {
+                            tList.AddRange(ComBinder.GetDynamicDataMemberNames(target));
+                        }*/
+                    }
+                    return string.Join(cSVSettings.Deliminator, Columns.ToArray());
                 }
-                return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToList(), cSVSettings.NewLine);
+                else
+                {
+                    Type MyType = typeof(T);
+                    ColumnValues = MyType.GetMembers().Where(x => x.MemberType == MemberTypes.Property).ToList();
+                    if (ColumnValues == null || ColumnValues.Count < 1)
+                    {
+                        return null;
+                    }
+                    return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToArray());
+                }
             }
             catch (Exception)
             {
@@ -117,10 +143,7 @@ namespace WeMicroIt.Utils.CSVConverter
                 {
                     throw new NullReferenceException();
                 }
-                //to be worked out
-                return null;
-
-                //return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToList(), cSVSettings.NewLine);
+                return SerializeHeader<object>(Data, Header);
             }
             catch (Exception)
             {
@@ -138,14 +161,41 @@ namespace WeMicroIt.Utils.CSVConverter
                 }
                 string line = "";
                 Type MyType = Type.GetType(nameof(Data));
-                foreach (var item in ColumnValues)
+                if ((ColumnValues == null || ColumnValues.Count < 1) && (Columns == null || Columns.Count < 1))
                 {
-                    if (item.MemberType == MemberTypes.Property)
+                    SerializeHeader<T>(Data);
+                }
+                if (ColumnValues != null && ColumnValues.Count > 0)
+                {
+                    foreach (var item in ColumnValues)
                     {
-                        string.Join(cSVSettings.Deliminator, line, MyType.GetProperty(nameof(item)).Attributes.ToString());
+                        if (string.IsNullOrEmpty(line))
+                        {
+                            line = MyType.GetProperty(nameof(item)).Attributes.ToString();
+                        }
+                        else
+                        {
+                            line = string.Join(cSVSettings.Deliminator, line);
+                        }
                     }
                 }
-                return string.Join(line.TrimStart(cSVSettings.Deliminator), cSVSettings.NewLine);
+                else if (Columns != null && Columns.Count > 0)
+                {
+                    dynamic obj = Data;
+                    foreach (var item in Columns)
+                    {
+                        if (string.IsNullOrEmpty(line))
+                        {
+                            line = obj[item];
+                        }
+                        else
+                        {
+                            line = string.Join(cSVSettings.Deliminator, line, obj[item]);
+                        }
+                    }
+                }
+
+                return line;
             }
             catch (Exception)
             {
