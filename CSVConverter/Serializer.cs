@@ -99,7 +99,7 @@ namespace WeMicroIt.Utils.CSVConverter
                             tList.AddRange(ComBinder.GetDynamicDataMemberNames(target));
                         }*/
                     }
-                    return string.Join(cSVSettings.Deliminator, Columns.ToArray());
+                    return string.Join(settings.Deliminator, Columns.ToArray());
                 }
                 else
                 {
@@ -109,7 +109,7 @@ namespace WeMicroIt.Utils.CSVConverter
                     {
                         return null;
                     }
-                    return string.Join(cSVSettings.Deliminator, ColumnValues.Select(x => x.Name).ToArray());
+                    return string.Join(settings.Deliminator, ColumnValues.Select(x => x.Name).ToArray());
                 }
             }
             catch (Exception)
@@ -175,7 +175,7 @@ namespace WeMicroIt.Utils.CSVConverter
                         }
                         else
                         {
-                            line = string.Join(cSVSettings.Deliminator, line);
+                            line = string.Join(settings.Deliminator, line);
                         }
                     }
                 }
@@ -190,7 +190,7 @@ namespace WeMicroIt.Utils.CSVConverter
                         }
                         else
                         {
-                            line = string.Join(cSVSettings.Deliminator, line, obj[item]);
+                            line = string.Join(settings.Deliminator, line, obj[item]);
                         }
                     }
                 }

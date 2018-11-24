@@ -11,15 +11,18 @@ namespace WeMicroIt.Utils.CSVConverter
 {
     public partial class CSVConverter: ICSVConverter
     {
+        private List<MemberInfo> ColumnValues { get; set; }
+        private List<string> Columns { get; set; }
+        private List<Fields> HeaderValues { get; set; }
+        public CSVSettings settings { get; set; }
+
         public CSVConverter()
         {
-
+            settings = new CSVSettings();
+            HeaderValues = new List<Fields>();
+            Columns = new List<string>();
+            ColumnValues = new List<MemberInfo>();
         }
-
-        private List<MemberInfo> ColumnValues = new List<MemberInfo>();
-        private List<string> Columns = new List<string>();
-        private List<Fields> HeaderValues = new List<Fields>();
-        private CSVSettings cSVSettings = new CSVSettings();
 
         public bool SetOptions(string options)
         {
@@ -35,7 +38,7 @@ namespace WeMicroIt.Utils.CSVConverter
         {
             try
             {
-                cSVSettings = options ?? throw new NullReferenceException(message: "Options Not Set.");
+                settings = options ?? throw new NullReferenceException(message: "Options Not Set.");
             }
             catch (Exception exc)
             {
@@ -52,7 +55,7 @@ namespace WeMicroIt.Utils.CSVConverter
                 {
                     using (var parser = new CsvTextFieldParser(csvReader))
                     {
-                        parser.SetDelimiter(cSVSettings.Deliminator);
+                        parser.SetDelimiter(settings.Deliminator);
                         parser.TrimWhiteSpace = false;
 
                         return parser.ReadFields();

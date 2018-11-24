@@ -25,12 +25,12 @@ namespace WeMicroIt.Utils.CSVConverter
             {
                 return null;
             }
-            return DeSerializeLines(Data.Split(cSVSettings.NewLine).ToList(), Headers);
+            return DeSerializeLines(Data.Split(settings.NewLine).ToList(), Headers);
         }
 
         public List<T> DeSerializeBlock<T>(string Data, bool Headers)
         {
-            return DeSerializeLines<T>(Data.Split(cSVSettings.NewLine).ToList(), Headers);
+            return DeSerializeLines<T>(Data.Split(settings.NewLine).ToList(), Headers);
         }
 
         public List<object> DeSerializeLines(string Data)
