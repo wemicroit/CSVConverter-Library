@@ -19,8 +19,12 @@ There are 2 approaches you can take in setting up this library and I will explai
 - Install Package (as per above)
 - Add using statement to your startup class
 <pre><code>using WeMicroIt.Utils.CSVConverter;</code></pre>
-- Add the CSVConverter to the configure services section
-<pre><code>services.AddCSV(new CSVSettings());</code></pre>
+- Add the CSVConverter to the configure services section and optionally pass in an options delegate which is used to configure the service
+<pre><code>services.AddCSV(options => options => {
+        options.settings.NewLine = "\r\n";
+        options.settings.Deliminator = ',';
+    });
+    </code></pre>
 - Add using statement to your class
 <pre><code>using WeMicroIt.Utils.CSVConverter;</code></pre>
 - Call Interface in the constructor on each class you wish to have access to the library
@@ -53,29 +57,29 @@ Once the library has been configured you can now call the methods to perform the
 
 <h3>Serialize</h3>
 ****
-<h4>SerializeBlock</h4>
+<h4>SerializeBlock(string Data, string? Headers)</h4>
 <pre><code>
-    List<string> var = SerializeBlock<T>(Data); //Use a list of items of a specified type & create a list of csv lines with a default header
-    List<string> var = SerializeBlock(Data); //Use a list of generic objects & create a list of csv lines with a default header
-    List<string> var = SerializeBlock<T>(Data, Header); //Use a list of items of a specified types & create a list of csv lines with a predefined header
-    List<string> var = SerializeBlock<T>(Data); //Use a list of generic objects & create a list of csv lines with a predefined header
+    List<string> var = SerializeBlock<T>(Data); //Construct a list of csv lines based upon the specified type & add a default header
+    List<string> var = SerializeBlock(Data); //Construct a list of csv lines based upon a generic object & add a default header
+    List<string> var = SerializeBlock<T>(Data, Header); //Construct a list of csv lines based upon the specified type & use the provided if valid or generate one
+    List<string> var = SerializeBlock(Data, Header); //Construct a list of csv lines based upon a generic object & use the provided if valid or generate one
 </code></pre>
 
-<h4>SerializeLines</h4>
+<h4>SerializeLines(string Data)</h4>
 <pre><code>
-    List<string> var = SerializeLines<T>(Data); //Use a list of items of a specified type & create a list of csv lines
-    List<string> var = SerializeLines(Data); //Use a list of generic objects & create a list of csv lines
+    List<string> var = SerializeLines<T>(Data); //Construct a list of csv lines based upon the specified type
+    List<string> var = SerializeLines(Data); //Construct a list of csv lines based upon a generic object
 </code></pre>
 
-<h4>SerializeHeader</h4>
+<h4>SerializeHeader(string Data, string? Headers)</h4>
 <pre><code>
     string var = SerializeHeader<T>(Data); //Construct a csv header using the specified type
     string var = SerializeHeader(Data); //Construct a csv header using the generic object
-    string var = SerializeHeader<T>(Data, Header); //If supplied header is null/empty, construct a header using the specified type
-    string var = SerializeHeader(Data, header); //If supplied header is null/empty construct a header using the generic object
+    string var = SerializeHeader<T>(Data, Header); //If supplied header is null/empty, construct a header using the specified type otherwise return header
+    string var = SerializeHeader(Data, header); //If supplied header is null/empty construct a header using the generic object otherwise return header
 </code></pre>
 
-<h4>SerializeLine</h4>
+<h4>SerializeLine(string Data)</h4>
 <pre><code>
     string var = SerializeLine<T>(Data); //Construct a csv line using the specified type
     string var = SerializeLine(Data); //Construct a csv line using the generic object
