@@ -18,9 +18,7 @@ There are 2 approaches you can take in setting up this library and I will explai
 ----------
 - Install Package (as per above)
 - Add using statement to your startup class
-<pre><code>
-    using WeMicroIt.Utils.CSVConverter;
-</code><pre>
+<pre><code>using WeMicroIt.Utils.CSVConverter;</code></pre>
 - Create variable of type CSVConverter
 - Configure your CSVConverter by using the set options method
 - Add using statement to your class
@@ -30,6 +28,7 @@ There are 2 approaches you can take in setting up this library and I will explai
 ----------
 - Install Package (as per above)
 - Add using statement to your class
+<pre><code>using WeMicroIt.Utils.CSVConverter;</code></pre>
 - Create variable of type CSVConverter 
 - Configure your CSVConverter by using the set options method
 
