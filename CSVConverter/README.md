@@ -53,7 +53,65 @@ Once the library has been configured you can now call the methods to perform the
 
 <h3>Serialize</h3>
 ****
+SerializeBlock<T>(List<T> Data)
+<pre><code>
+    List<string> var = SerializeBlock<T>(Data);
+</code></pre>
 
+SerializeBlock(List<object> Data)
+<pre><code>
+    List<string> var = SerializeBlock<>(Data);
+</code></pre>
+
+SerializeBlock(List<object> Data, string Header)
+<pre><code>
+    List<string> var = SerializeBlock<T>(Data);
+</code></pre>
+
+SerializeBlock<T>(List<T> Data, string Header)
+<pre><code>
+    List<string> var = SerializeBlock<T>(Data);
+</code></pre>
+
+SerializeLines<T>(List<T> Data)
+<pre><code>
+    List<string> var = SerializeLines<T>(Data);
+</code></pre>
+
+SerializeLines(List<object> Data)
+<pre><code>
+    List<string> var = SerializeLines(Data);
+</code></pre>
+
+string SerializeHeader<T>(Data)
+<pre><code>
+    string var = SerializeHeader<T>(Data)
+</code></pre>
+
+public string SerializeHeader<T>(Data, Header)
+<pre><code>
+    string var = SerializeHeader<T>(Data)
+</code></pre>
+
+public string SerializeHeader(object Data)
+<pre><code>
+    string var = SerializeHeader(Data)
+</code></pre>
+
+public string SerializeHeader(object Data, string Header)
+<pre><code>
+    string var = SerializeHeader(Data, header)
+</code></pre>
+
+public string SerializeLine<T>(Data)
+<pre><code>
+    string var = SerializeLine<T>(Data)
+</code></pre>
+
+public string SerializeLine(object Data)
+<pre><code>
+    string var = SerializeLine(Data)
+</code></pre>
 
 <h3>DeSerialize</h3>
 ****
