@@ -13,7 +13,12 @@ namespace WeMicroIt.Utils.CSVConverter
     {
         public CSVConverter()
         {
+            cSVSettings = new CSVSettings();
+        }
 
+        public CSVConverter(CSVSettings settings)
+        {
+            cSVSettings = settings;
         }
 
         private List<MemberInfo> ColumnValues = new List<MemberInfo>();
