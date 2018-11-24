@@ -1,7 +1,7 @@
 CSVConverter - https://www.nuget.org/packages/WeMicroIt.Utils.CSVConverter/
 ===========
 
-How To Install:
+<h2>How To Install:</h2>
 The simpliest way to install this library is by using the following command in the NuGet package manager
 <pre><code>Install-Package WeMicroIt.Utils.CSVConverter</code></pre>
 Alternatively you can use this command in the dotnet tools window
@@ -9,7 +9,7 @@ Alternatively you can use this command in the dotnet tools window
 
 ---
 
-How To Configure:
+<h2>How To Configure:</h2>
 There are 2 approaches you can take in setting up this library and I will explain both of them.
 
 <h3>Use Dependency Injection (Prefered)</h3>
@@ -46,7 +46,7 @@ There are 2 approaches you can take in setting up this library and I will explai
 
 ----
 
-How To Use:
+<h2>How To Use:</h2>
 Once the library has been configured you can now call the methods to perform the manipulation
 
 <h3>Serialize</h3>
