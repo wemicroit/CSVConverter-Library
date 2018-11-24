@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSVConverterLite\CSVConverter.csproj" />
+    <ProjectReference Include="..\CSVConverter\CSVConverter.csproj" />
   </ItemGroup>
 
 </Project>
