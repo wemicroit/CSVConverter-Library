@@ -41,8 +41,8 @@ namespace WeMicroIt.Utils.CSVConverter
                 {
                     throw new NullReferenceException();
                 }
-                var newData = Data.Split("\r\n").ToList();
-                return DeSerializeLines(newData);
+                var newdata = Data.Split(settings.NewLine).ToList();
+                return DeSerializeLines(newdata);
             }
             catch (Exception)
             {
@@ -57,8 +57,8 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public List<T> DeSerializeLines<T>(string Data)
         {
-            var newData = Data.Split("\r\n").ToList();
-            return DeSerializeLines<T>(newData);
+            var newdata = Data.Split(settings.NewLine).ToList();
+            return DeSerializeLines<T>(newdata);
         }
 
         public List<T> DeSerializeLines<T>(List<string> Data)
@@ -84,8 +84,8 @@ namespace WeMicroIt.Utils.CSVConverter
 
         public List<object> DeSerializeLines(string Data, bool Headers)
         {
-            var newData = Data.Split("\r\n").ToList();
-            return DeSerializeLines(newData, Headers);
+            var newdata = Data.Split(settings.NewLine).ToList();
+            return DeSerializeLines(newdata, Headers);
         }
 
         public List<object> DeSerializeLines(List<string> Data, bool Headers)
@@ -123,7 +123,7 @@ namespace WeMicroIt.Utils.CSVConverter
                     throw new NullReferenceException();
                 }
                 dynamic line = new ExpandoObject();
-                string[] con = GetFields(Data);
+                string[] con = getFields(Data);
                 if (con.Length < 1)
                 {
                     throw new ArgumentOutOfRangeException();
@@ -133,12 +133,12 @@ namespace WeMicroIt.Utils.CSVConverter
                     throw new ArgumentOutOfRangeException();
                 }*/
                 int i = 0;
-                while (i < HeaderValues.Count && i < con.Length)
+                while (i < headerValues.Count && i < con.Length)
                 {
                     line./*HeaderValues[*/i/*]*/ = con[i];
                     i++;
                 }
-                while (i < HeaderValues.Count)
+                while (i < headerValues.Count)
                 {
                     line.HeaderValues[i] = null;
                     i++;

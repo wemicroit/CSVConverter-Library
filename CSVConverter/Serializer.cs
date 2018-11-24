@@ -34,8 +34,10 @@ namespace WeMicroIt.Utils.CSVConverter
                 {
                     throw new NullReferenceException();
                 }
-                List<string> lines = new List<string>();
-                lines.Add(SerializeHeader<T>(Data.FirstOrDefault(), Header));
+                List<string> lines = new List<string>
+                {
+                    SerializeHeader<T>(Data.FirstOrDefault(), Header)
+                };
                 lines.AddRange(SerializeLines<T>(Data));
                 return lines;
             }
@@ -85,8 +87,8 @@ namespace WeMicroIt.Utils.CSVConverter
 
                     if (tTarget != null)
                     {
-                        Columns = tTarget.GetMetaObject(Expression.Constant(tTarget)).GetDynamicMemberNames().ToList();
-                        if (Columns == null || Columns.Count < 1)
+                        columns = tTarget.GetMetaObject(Expression.Constant(tTarget)).GetDynamicMemberNames().ToList();
+                        if (columns == null || columns.Count < 1)
                         {
                             return null;
                         }
@@ -99,17 +101,17 @@ namespace WeMicroIt.Utils.CSVConverter
                             tList.AddRange(ComBinder.GetDynamicDataMemberNames(target));
                         }*/
                     }
-                    return string.Join(settings.Deliminator, Columns.ToArray());
+                    return string.Join(settings.Deliminator, columns.ToArray());
                 }
                 else
                 {
-                    Type MyType = typeof(T);
-                    ColumnValues = MyType.GetMembers().Where(x => x.MemberType == MemberTypes.Property).ToList();
-                    if (ColumnValues == null || ColumnValues.Count < 1)
+                    Type myType = typeof(T);
+                    columnValues = myType.GetMembers().Where(x => x.MemberType == MemberTypes.Property).ToList();
+                    if (columnValues == null || columnValues.Count < 1)
                     {
                         return null;
                     }
-                    return string.Join(settings.Deliminator, ColumnValues.Select(x => x.Name).ToArray());
+                    return string.Join(settings.Deliminator, columnValues.Select(x => x.Name).ToArray());
                 }
             }
             catch (Exception)
@@ -160,18 +162,18 @@ namespace WeMicroIt.Utils.CSVConverter
                     throw new NullReferenceException();
                 }
                 string line = "";
-                Type MyType = Type.GetType(nameof(Data));
-                if ((ColumnValues == null || ColumnValues.Count < 1) && (Columns == null || Columns.Count < 1))
+                Type mytype = Type.GetType(nameof(Data));
+                if ((columnValues == null || columnValues.Count < 1) && (columns == null || columns.Count < 1))
                 {
                     SerializeHeader<T>(Data);
                 }
-                if (ColumnValues != null && ColumnValues.Count > 0)
+                if (columnValues != null && columnValues.Count > 0)
                 {
-                    foreach (var item in ColumnValues)
+                    foreach (var item in columnValues)
                     {
                         if (string.IsNullOrEmpty(line))
                         {
-                            line = MyType.GetProperty(nameof(item)).Attributes.ToString();
+                            line = mytype.GetProperty(nameof(item)).Attributes.ToString();
                         }
                         else
                         {
@@ -179,10 +181,10 @@ namespace WeMicroIt.Utils.CSVConverter
                         }
                     }
                 }
-                else if (Columns != null && Columns.Count > 0)
+                else if (columns != null && columns.Count > 0)
                 {
                     dynamic obj = Data;
-                    foreach (var item in Columns)
+                    foreach (var item in columns)
                     {
                         if (string.IsNullOrEmpty(line))
                         {

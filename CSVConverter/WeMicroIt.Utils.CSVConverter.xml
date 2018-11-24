@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeMicroIt.Utils.CSVConverter</name>
+    </assembly>
+    <members>
+        <member name="T:WeMicroIt.Utils.CSVConverter.Interfaces.ICSVConverter">
+            <summary>
+      This interface allow's for Depenency Injection of the CSV service into all the classes.
+    </summary><remark>
+      <para>This interface can serialize onjects, lists &amp; stings etc, to a list of CSV encoded strings with an auto generated header. </para>
+      <para>At the same time it can deserialize a csv block/line to a list of objects of specific types of objects or even just one object. </para>
+    </remark><seealso cref="M:WeMicroIt.Utils.CSVConverter.CSVConverter.#ctor" />
+        </member>
+        <member name="T:WeMicroIt.Utils.CSVConverter.Models.CSVSettings">
+            <summary>An object which encompasses all the settings which are used to configure the CSV service.</summary>
+        </member>
+        <member name="M:WeMicroIt.Utils.CSVConverter.Models.CSVSettings.#ctor">
+            <summary>Sets sensible defaults to be used for CSV Conversion.</summary>
+        </member>
+        <member name="P:WeMicroIt.Utils.CSVConverter.Models.CSVSettings.Deliminator">
+            <summary>A character which indicate's what character is being used to seperate the fields within the csv string.</summary><remark>
+        <para>The most common value is ',' however any character could be used.</para>
+      </remark>
+        </member>
+        <member name="P:WeMicroIt.Utils.CSVConverter.Models.CSVSettings.NewLine">
+            <summary>A character/string which indicate's what character is being used to designate a new record.</summary><remark>
+        <para>The most common value to be used is "\r\n".</para>
+      </remark>
+        </member>
+        <member name="T:WeMicroIt.Utils.CSVConverter.Models.Fields">
+            <summary>An object which stores information about a column.</summary>
+        </member>
+        <member name="P:WeMicroIt.Utils.CSVConverter.Models.Fields.Name">
+            <summary>What is the name for this field</summary><returns>
+        Returns the the name of the field as a <parama name="string" />.
+      </returns>
+        </member>
+        <member name="P:WeMicroIt.Utils.CSVConverter.Models.Fields.Type">
+            <Summary>
+        What is the underlying of this field
+      </Summary><returns>
+        Returns the the the identifer for the variable type.
+      </returns>
+        </member>
+        <member name="T:WeMicroIt.Utils.CSVConverter.Services.CSVService">
+            <summary>
+        Creates a Dependency Injectionable service which can be used for CSV conversion.
+      </summary><remark>
+        <para>This service unit is the basis of what is required to get up and running.</para>
+      </remark><seealso cref="M:WeMicroIt.Utils.CSVConverter.CSVConverter.#ctor" />
+        </member>
+        <member name="M:WeMicroIt.Utils.CSVConverter.Services.CSVService.AddCSV(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+        Add the CSV Conversion service to the application so it can be used.
+      </summary><returns>
+        void
+      </returns><param name="options">A delegate expression which contains the settings.</param>
+        </member>
+    </members>
+</doc>

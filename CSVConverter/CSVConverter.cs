@@ -11,30 +11,30 @@ namespace WeMicroIt.Utils.CSVConverter
 {
     public partial class CSVConverter: ICSVConverter
     {
-        private List<MemberInfo> ColumnValues { get; set; }
-        private List<string> Columns { get; set; }
-        private List<Fields> HeaderValues { get; set; }
-        public CSVSettings settings { get; set; }
+        private List<MemberInfo> columnValues;
+        private List<string> columns;
+        private List<Fields> headerValues;
+        private CSVSettings settings { get; set; }
 
         public CSVConverter()
         {
             settings = new CSVSettings();
-            HeaderValues = new List<Fields>();
-            Columns = new List<string>();
-            ColumnValues = new List<MemberInfo>();
+            headerValues = new List<Fields>();
+            columns = new List<string>();
+            columnValues = new List<MemberInfo>();
         }
 
         public bool SetOptions(string options)
         {
-            return options == null? SetAllOptions(null) : SetAllOptions(JsonConvert.DeserializeObject<CSVSettings>(options));
+            return options == null? setAllOptions(null) : setAllOptions(JsonConvert.DeserializeObject<CSVSettings>(options));
         }
 
         public bool SetOptions(CSVSettings options)
         {
-            return SetAllOptions(options);
+            return setAllOptions(options);
         }
 
-        private bool SetAllOptions(CSVSettings options)
+        private bool setAllOptions(CSVSettings options)
         {
             try
             {
@@ -47,11 +47,11 @@ namespace WeMicroIt.Utils.CSVConverter
             return true;
         }
 
-        private string[] GetFields(string Data)
+        private string[] getFields(string data)
         {
             try
             {
-                using (var csvReader = new StringReader(Data))
+                using (var csvReader = new StringReader(data))
                 {
                     using (var parser = new CsvTextFieldParser(csvReader))
                     {
