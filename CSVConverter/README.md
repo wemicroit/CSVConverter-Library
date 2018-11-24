@@ -4,9 +4,9 @@ CSVConverter - https://www.nuget.org/packages/WeMicroIt.Utils.CSVConverter/
 How To Install:
 ****
 The simpliest way to install this library is by using the following command in the NuGet package manager
-"Install-Package WeMicroIt.Utils.CSVConverter'
+<pre><code>Install-Package WeMicroIt.Utils.CSVConverter</code></pre>
 Alternatively you can use this command in the dotnet tools window
-"dotnet add package WeMicroIt.Utils.CSVConverter"
+<pre><code>dotnet add package WeMicroIt.Utils.CSVConverter</code></pre>
 
 ---
 
