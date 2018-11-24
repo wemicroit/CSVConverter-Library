@@ -9,16 +9,19 @@
     <Authors>James Thompson</Authors>
     <Company>WeMicroIt</Company>
     <Product>CSV Converter</Product>
-    <Version>1.0.0-RC1</Version>
+    <Version>1.0.0-RC2</Version>
     <Description>This libraries sole purpose is take an input and convert into CSV compliant output. It also now supports deserialising CSV data into both generic models as well as speciffied models.</Description>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>The ability to use a delegate to configure the service has been added to reduce the required steps to use the library via dependency injection.</PackageReleaseNotes>
     <Copyright>2018</Copyright>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>CSV Conversion</PackageTags>
     <PackageId>WeMicroIt.Utils.CSVConverter</PackageId>
     <ApplicationIcon></ApplicationIcon>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/wemicroit/CSVConverter-Library/master/CSVConverter/Resources/Icon.png</PackageIconUrl>
     <License>MIT</License>
+    <PackageLicenseUrl>https://github.com/wemicroit/CSVConverter-Library/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/wemicroit/CSVConverter-Library/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wemicroit/CSVConverter-Library/</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
