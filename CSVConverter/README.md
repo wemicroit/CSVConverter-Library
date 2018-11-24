@@ -53,65 +53,55 @@ Once the library has been configured you can now call the methods to perform the
 
 <h3>Serialize</h3>
 ****
-SerializeBlock<T>(List<T> Data)
+<h4>SerializeBlock</h4>
 <pre><code>
-    List<string> var = SerializeBlock<T>(Data);
+    List<string> var = SerializeBlock<T>(Data); //Use a list of items of a specified type & create a list of csv lines with a default header
+    List<string> var = SerializeBlock(Data); //Use a list of generic objects & create a list of csv lines with a default header
+    List<string> var = SerializeBlock<T>(Data, Header); //Use a list of items of a specified types & create a list of csv lines with a predefined header
+    List<string> var = SerializeBlock<T>(Data); //Use a list of generic objects & create a list of csv lines with a predefined header
 </code></pre>
 
-SerializeBlock(List<object> Data)
+<h4>SerializeLines</h4>
 <pre><code>
-    List<string> var = SerializeBlock<>(Data);
+    List<string> var = SerializeLines<T>(Data); //Use a list of items of a specified type & create a list of csv lines
+    List<string> var = SerializeLines(Data); //Use a list of generic objects & create a list of csv lines
 </code></pre>
 
-SerializeBlock(List<object> Data, string Header)
+<h4>SerializeHeader</h4>
 <pre><code>
-    List<string> var = SerializeBlock<T>(Data);
+    string var = SerializeHeader<T>(Data); //Construct a csv header using the specified type
+    string var = SerializeHeader(Data); //Construct a csv header using the generic object
+    string var = SerializeHeader<T>(Data, Header); //If supplied header is null/empty, construct a header using the specified type
+    string var = SerializeHeader(Data, header); //If supplied header is null/empty construct a header using the generic object
 </code></pre>
 
-SerializeBlock<T>(List<T> Data, string Header)
+<h4>SerializeLine</h4>
 <pre><code>
-    List<string> var = SerializeBlock<T>(Data);
-</code></pre>
-
-SerializeLines<T>(List<T> Data)
-<pre><code>
-    List<string> var = SerializeLines<T>(Data);
-</code></pre>
-
-SerializeLines(List<object> Data)
-<pre><code>
-    List<string> var = SerializeLines(Data);
-</code></pre>
-
-string SerializeHeader<T>(Data)
-<pre><code>
-    string var = SerializeHeader<T>(Data)
-</code></pre>
-
-public string SerializeHeader<T>(Data, Header)
-<pre><code>
-    string var = SerializeHeader<T>(Data)
-</code></pre>
-
-public string SerializeHeader(object Data)
-<pre><code>
-    string var = SerializeHeader(Data)
-</code></pre>
-
-public string SerializeHeader(object Data, string Header)
-<pre><code>
-    string var = SerializeHeader(Data, header)
-</code></pre>
-
-public string SerializeLine<T>(Data)
-<pre><code>
-    string var = SerializeLine<T>(Data)
-</code></pre>
-
-public string SerializeLine(object Data)
-<pre><code>
-    string var = SerializeLine(Data)
+    string var = SerializeLine<T>(Data); //Construct a csv line using the specified type
+    string var = SerializeLine(Data); //Construct a csv line using the generic object
 </code></pre>
 
 <h3>DeSerialize</h3>
 ****
+public List<object> DeSerializeBlock(string Data)
+<pre><code>
+    List<object> var = SerializeHeader<T>(Data)
+</code></pre>
+
+public List<T> DeSerializeBlock<T>(string Data)
+<pre><code>
+    string var = SerializeHeader<T>(Data)
+</code></pre>
+
+public List<object> DeSerializeBlock(string Data, bool Headers)
+public List<T> DeSerializeBlock<T>(string Data, bool Headers)
+public List<object> DeSerializeLines(string Data)
+public List<object> DeSerializeLines(List<string> Data)
+public List<T> DeSerializeLines<T>(string Data)
+public List<T> DeSerializeLines<T>(List<string> Data)
+public List<object> DeSerializeLines(string Data, bool Headers)
+public List<object> DeSerializeLines(List<string> Data, bool Headers)
+public List<T> DeSerializeLines<T>(string Data, bool Headers)
+public List<T> DeSerializeLines<T>(List<string> Data, bool Headers)
+public object DeSerializeLine(string Data)
+public T DeSerializeLine<T>(string Data)
