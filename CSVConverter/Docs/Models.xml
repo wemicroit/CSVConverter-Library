@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Doc>
+  <Model name="CSVSettings">
+    <CSVSettings>
+      <summary>An object which encompasses all the settings which are used to configure the CSV service.</summary>
+    </CSVSettings>
+    <Deliminator>
+      <summary>A character which indicate's what character is being used to seperate the fields within the csv string.</summary>
+      <remark>
+        <para>The most common value is ',' however any character could be used.</para>
+      </remark>
+    </Deliminator>
+    <NewLine>
+      <summary>A character/string which indicate's what character is being used to designate a new record.</summary>
+      <remark>
+        <para>The most common value to be used is "\r\n".</para>
+      </remark>
+    </NewLine>
+    <Constructor>
+      <summary>Sets sensible defaults to be used for CSV Conversion.</summary>
+    </Constructor>
+  </Model>
+  <Model name="Field">
+    <Field>
+      <summary>An object which stores information about a column.</summary>
+    </Field>
+    <Name>
+      <summary>What is the name for this field</summary>
+      <returns>
+        Returns the the name of the field as a <parama name="string"></parama>.
+      </returns>
+    </Name>
+    <Type>
+      <Summary>
+        What is the underlying of this field
+      </Summary>
+      <returns>
+        Returns the the the identifer for the variable type.
+      </returns>
+    </Type>
+  </Model>>
+</Doc>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Doc>
+  <Service name="CSVService">
+    <CSVService>
+      <summary>
+        Creates a Dependency Injectionable service which can be used for CSV conversion.
+      </summary>
+      <remark>
+        <para>This service unit is the basis of what is required to get up and running.</para>
+      </remark>
+      <seealso cref="CSVConverter()"></seealso>
+    </CSVService>
+    <AddCSV>
+      <summary>
+        Add the CSV Conversion service to the application so it can be used.
+      </summary>
+      <returns>
+        void
+      </returns>
+      <param name="options">A delegate expression which contains the settings.</param>
+    </AddCSV>
+  </Service>
+</Doc>
