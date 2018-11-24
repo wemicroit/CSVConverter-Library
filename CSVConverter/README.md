@@ -87,25 +87,32 @@ Once the library has been configured you can now call the methods to perform the
 
 <h3>DeSerialize</h3>
 ****
-public List<object> DeSerializeBlock(string Data)
+<h4>DeSerializeBlock(string Data, bool? Headers)</h4>
 <pre><code>
-    List<object> var = SerializeHeader<T>(Data)
+    List<T> var = SerializDeSerializeBlock<T>(Data); //Construct a list of specific types of objects from the input data
+    List<object> var = DeSerializeBlock(Data); //Construct a list of generic objects from the input data
+    List<T> var = DeSerializeBlock<T>(Data, Headers); //Construct a list of specific types of objects from the input data, optionally ignoring the first row
+    List<object> var = DeSerializeBlock(Data, Headers); //Construct a list of generic objects from the input data and optionally use the first row to determine the properties
 </code></pre>
 
-public List<T> DeSerializeBlock<T>(string Data)
+<h4>DeSerializeLines(List<string> Data, string? Headers)</h4>
 <pre><code>
-    string var = SerializeHeader<T>(Data)
+    List<T> var = DeSerializeLines<T>(Data); //Construct a list of specific types of objects from the input list
+    List<object> var = DeSerializeLines(Data); //Construct a list of generic objects from the input list
+    List<T> var = DeSerializeLines<T>(Data, Headers); //Construct a list of specific types of objects from the input list optionally ignoring the header row
+    List<object> var = DeSerializeLines(Data, Headers); //Construct a list of generic objects from the input list optionally ignoring the header row
 </code></pre>
 
-public List<object> DeSerializeBlock(string Data, bool Headers)
-public List<T> DeSerializeBlock<T>(string Data, bool Headers)
-public List<object> DeSerializeLines(string Data)
-public List<object> DeSerializeLines(List<string> Data)
-public List<T> DeSerializeLines<T>(string Data)
-public List<T> DeSerializeLines<T>(List<string> Data)
-public List<object> DeSerializeLines(string Data, bool Headers)
-public List<object> DeSerializeLines(List<string> Data, bool Headers)
-public List<T> DeSerializeLines<T>(string Data, bool Headers)
-public List<T> DeSerializeLines<T>(List<string> Data, bool Headers)
-public object DeSerializeLine(string Data)
-public T DeSerializeLine<T>(string Data)
+<h4>DeSerializeLines(string Data, string? Headers)</h4>
+<pre><code>
+    List<T> var = DeSerializeLines<T>(Data); //Construct a list of specific types of objects from the input string
+    List<object> var = DeSerializeLines(Data); //Construct a list of generic objects from the input list string
+    List<T> var = DeSerializeLines<T>(Data, Headers); //Construct a list of specific types of objects from the input string optionally ignoring the header row
+    List<object> var = DeSerializeLines(Data, Headers); //Construct a list of generic objects from the input string optionally ignoring the header row
+</code></pre>
+
+<h4>DeSerializeLine(string Data)</h4>
+<pre><code>
+    T var = DeSerializeLine<T>(Data); //Construct specific object based upon the csv input
+    object var = DeSerializeLine( Data); //Construct generic object based upon the csv input
+</code></pre>
